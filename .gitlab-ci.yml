@@ -1,0 +1,38 @@
+## YAML Template.
+---
+stages:
+  - checkFramework
+  - sonarQube
+
+check:
+  stage: checkFramework
+  image: harbordev.coppel.io/auditorias/frameworkcheck:0.0.2
+  tags:
+    - docker
+  script:
+    - cd /app
+    - node ./dist
+  only:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /\d{1,6}_\d{6}_(\w*Desarrollo\w*)/
+  except:
+    - branches
+sonar:
+  image: harbor.coppel.io/library/sonar-scanner:3.2.0
+  stage: sonarQube
+  tags:
+    - docker
+  script:
+    - export NODE_PATH=$NODE_PATH:`npm root -g`
+    - sonar-scanner
+  only:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /\d{1,6}_\d{6}_(\w*Desarrollo\w*)/
+  except:
+    - branches

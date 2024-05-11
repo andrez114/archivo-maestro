@@ -1,0 +1,47 @@
+<div class="d-flex flex-column" align='center'>
+  <div class="card" id="tarjeta">
+    <div class="card-header h4 text-center">
+      <h2>Formación de Archivo Maestro</h2>
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12" align="right">
+      </div>
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-5" align="left">
+        <label for="">Tipo de Tienda:</label>
+        <p-dropdown [options]="opcionTienda" #vOpcion id="vOpcion" (onChange)="cargarTiendas(vOpcion.value)"
+          [(ngModel)]="valorOpcion"> </p-dropdown>
+      </div>
+      <div class="ui-g-12 ui-md-2" align="left">
+      </div>
+      <div class="ui-g-12 ui-md-5" align="left">
+        <label for="">Tiendas:</label>
+        <p-dropdown [options]="tablatiendas" #vTienda id="vTienda" filter="true" [(ngModel)]="valorTienda" resetFilterOnHide="false" emptyFilterMessage="Sin Resultados."
+          (onChange)="validarEjecutar(vTienda.value, vOpcion.value)" placeholder="Selecciona una Tienda">
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12" align="right">
+        <button type="button" class="btn btn-success" (click)="ejecutarFormacion(vOpcion.value, vTienda.value, 0)"
+          [disabled]="disaBtnEjecutar"><i class="fa fa-play" aria-hidden="true"></i> Ejecutar
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="limpiar()"><i class="fa fa-eraser"
+            aria-hidden="true"></i> Limpiar
+        </button>
+        <button type="button" class="btn btn-light" (click)="ProcesarEdicionSolicitud(consultas)"
+          [disabled]="disaBtnConsultar"><i class="fa fa-search" aria-hidden="true"></i> Consultar
+        </button>
+        <button type="button" (click)="regresar()" class="btn btn-primary"><i class="fa fa-reply"
+            aria-hidden="true"></i> Regresar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #consultas style="width: 80%;">
+  <app-consultas (consultas)="procesarModal($event)"></app-consultas>
+</ng-template>
+
+<app-open-pdf [visualizar]="opcion" [openPdf]="openPdf"></app-open-pdf>

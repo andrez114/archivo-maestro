@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Dashboard",
+    "url": "/dashboard",
+    "icon": "icon-speedometer"
+  },
+  {
+    "title": true,
+    "name": "App"
+  },
+  {
+    "name": "Ejemplo",
+    "url": "/example",
+    "icon": "icon-wrench",
+    "badge": {
+      "variant": "danger",
+      "text": "NEW"
+    }
+  }
+]

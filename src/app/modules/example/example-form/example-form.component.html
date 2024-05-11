@@ -1,0 +1,94 @@
+<div class="animated fadeIn">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card" *blockUI="'centro-data'">
+        <form action="" class="form-horizontal" [formGroup]="centroForm" (ngSubmit)="enviar()">
+          <div class="card-header">
+            <strong>{{ title }} </strong>
+            <div class="card-actions">
+              <a [routerLink]="['/example']" tooltip="Regresar" class="btn-setting text-primary" href="#">
+                <i class="icon-arrow-left-circle"></i>
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="name">Nombre</label>
+              <div class="col-md-9">
+                <input
+                  formControlName="nomCentro"
+                  class="form-control"
+                  id="nomCentro"
+                  name="nomCentro"
+                  placeholder="Text"
+                  type="text"
+                />
+                <span
+                  *ngIf="centroForm.controls['nomCentro'].invalid && centroForm.controls['nomCentro'].touched"
+                  class="help-block text-danger"
+                  >Este campo es requerido</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="select">Estatus</label>
+              <div class="col-md-9">
+                <select formControlName="opcEstatus" class="form-control" id="opcEstatus" name="opcEstatus">
+                  <option [value]="">Seleccione...</option>
+                  <option [ngValue]="0">Nuevo</option>
+                  <option [ngValue]="1">Activo</option>
+                  <option [ngValue]="2">Inactivo</option>
+                  <option [ngValue]="3">Desconocido</option>
+                </select>
+                <span
+                  *ngIf="centroForm.controls['opcEstatus'].invalid && centroForm.controls['opcEstatus'].touched"
+                  class="help-block text-danger"
+                  >Este campo es requerido</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="chk">Value</label>
+              <div class="col-md-9">
+                <label class="switch switch-default switch-pill switch-success-outline-alt">
+                  <input formControlName="selected" checked="" class="switch-input" type="checkbox" />
+                  <span class="switch-label"></span> <span class="switch-handle"></span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label">Ciudad</label>
+              <div class="col-md-9">
+                <input
+                  formControlName="ciudadId"
+                  [typeahead]="ciudades"
+                  typeaheadOptionField="nombre"
+                  [typeaheadOptionsLimit]="7"
+                  [typeaheadMinLength]="0"
+                  (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                  placeholder="Buscar ciudad ..."
+                  class="form-control"
+                />
+                <span
+                  *ngIf="centroForm.controls['ciudadId'].invalid && centroForm.controls['ciudadId'].touched"
+                  class="help-block text-danger"
+                  >Este campo es requerido</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer clearfix">
+            <div class="group-buttons float-right">
+              <button *ngIf="!id" (click)="resetForm()" class="btn btn-sm btn-danger" type="reset">
+                <i class="fa fa-ban"></i> Reset
+              </button>
+              <button type="button" class="btn btn-sm btn-danger" (click)="regresar()">Cancelar</button>
+              <button [disabled]="!centroForm.valid" class="btn btn-sm btn-primary" type="submit">
+                <i class="fa fa-dot-circle-o"></i> Enviar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

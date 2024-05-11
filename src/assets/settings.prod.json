@@ -1,0 +1,5 @@
+{
+  "webApiBaseUrl": "http://localhost:3200",
+  "apiMenu": "http://localhost:3200/api/menu2",
+  "login": "/login"
+}

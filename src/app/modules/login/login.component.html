@@ -1,0 +1,88 @@
+<toaster-container></toaster-container>
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center" *ngIf="_inHouse">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <h2>Login</h2>
+            <p class="text-muted">Favor de Identificarse</p>
+            <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+              <ng-container *ngIf="_huella">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-user"></i>
+                    </span>
+                  </div>
+                  <input
+                    maxlength="8"
+                    minlength="8"
+                    appRestringirTipo
+                    [permitir]="'numeros'"
+                    type="text"
+                    class="form-control form-control-lg"
+                    [ngClass]="{ 'is-invalid': f.submitted && !empleado.valid }"
+                    placeholder="Empleado"
+                    name="username"
+                    [(ngModel)]="credential.Empleado"
+                    #empleado="ngModel"
+                    required
+                  />
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <button [disabled]="f.form.invalid" class="btn btn-primary px-4">Ingresar</button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!_huella">
+                <small *ngIf="f.submitted && !username.valid" class="help-block">Usuario es requerido</small>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-user"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    [ngClass]="{ 'is-invalid': f.submitted && !username.valid }"
+                    placeholder="Usuario"
+                    name="username"
+                    [(ngModel)]="credential.Usuario"
+                    #username="ngModel"
+                    required
+                  />
+                </div>
+                <small *ngIf="f.submitted && !password.valid" class="help-block">Password es requerido</small>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-lock"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    [ngClass]="{ 'is-invalid': f.submitted && !password.valid }"
+                    placeholder="Password"
+                    name="password"
+                    [(ngModel)]="credential.Password"
+                    #password="ngModel"
+                    required
+                  />
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <button [disabled]="f.form.invalid" class="btn btn-primary px-4">Ingresar</button>
+                  </div>
+                </div>
+              </ng-container>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

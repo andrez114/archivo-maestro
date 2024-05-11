@@ -1,0 +1,102 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" *blockUI="'example-list'">
+        <div class="card-header">
+          <strong>Listado de Centros</strong>
+          <div class="card-actions">
+            <a [routerLink]="['/example/nuevo']" tooltip="Agregar Nuevo" class="btn-setting text-primary" href="#">
+              <i class="icon-plus"></i>
+            </a>
+            <button class="btn-setting text-primary" (click)="consultarPdf()" tooltip="Descargar Archivo">
+              <i class="fa fa-file-pdf-o"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <p-table
+            #dt
+            [columns]="cols"
+            [value]="centros"
+            [autoLayout]="true"
+            [paginator]="true"
+            [rows]="5"
+            sortMode="single"
+            sortField="id"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field" class="text-center">
+                  {{ col.header }}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th></th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                  <input
+                    *ngIf="col.field == 'id' || col.field == 'nomCentro'"
+                    class="form-control"
+                    pInputText
+                    type="text"
+                    (input)="dt.filter($event.target.value, col.field, 'contains')"
+                  />
+                  <p-dropdown
+                    *ngSwitchCase="'opcEstatus'"
+                    appendTo="body"
+                    [options]="estatus"
+                    [style]="{ width: '100%' }"
+                    (onChange)="info($event.value, col.field); dt.filter($event.value, col.field, 'equals')"
+                  ></p-dropdown>
+                  <p-dropdown
+                    *ngSwitchCase="'ciudad'"
+                    appendTo="body"
+                    [options]="ciudades"
+                    optionLabel="nombre"
+                    [style]="{ width: '100%' }"
+                    (onChange)="info($event.value, col.field); dt.filter($event.value.id, 'ciudad.id', 'equals')"
+                  ></p-dropdown>
+                </th>
+                <th></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td class="tab-width-5">{{ item.id }}</td>
+                <td class="tab-width-40">{{ item.nomCentro }}</td>
+                <td class="tab-width-10">{{ item.opcEstatus | example }}</td>
+                <td class="tab-width-10">{{ item.fecActualiza | date: 'dd MMM yyyy' }}</td>
+                <td class="tab-width-10">{{ item.ciudad['nombre'] }}</td>
+                <td class="tab-width-10">
+                  <div class="text-center">
+                    <a
+                      [routerLink]="['/example/editar', item.id]"
+                      id=""
+                      class="btn btn-info btn-sm"
+                      href="#"
+                      role="button"
+                    >
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="eliminar(item.id)">
+                      <i class="fa fa-trash-o"></i>
+                    </button>
+                    <cpl-validar-usuario
+                      [options]="opciones"
+                      (validate)="eliminarHuella($event, item)"
+                    ></cpl-validar-usuario>
+                    <button type="button" class="btn bg-orange btn-sm" (click)="eliminarHuellaServicio(item.id)">
+                      <i class="fa fa-trash-o"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-open-pdf [visualizar]="opcion" [openPdf]="openPdf"></app-open-pdf>

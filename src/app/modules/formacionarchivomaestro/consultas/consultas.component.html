@@ -1,0 +1,49 @@
+<section style="margin:5px;">
+  <div class="modal-header">
+    <h4 id="dialog-sizes-name1" class="modal-title pull-left">Formación de Maestro Para Tiendas Nuevas</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cerrarFormulario()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <section style="min-width: 80%;">
+    <div class="tab-pane fade show active panel-estados">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-12" align="center">
+          <p-table [value]="maestro" align="center">
+            <ng-template pTemplate="header">
+              <tr>
+                <th colspan="6" align="center">Maestro</th>
+                <th colspan="4" align="center">Transito</th>
+                <th colspan="4" align="center">CtlGuias</th>
+                <th colspan="4" align="center">Diferencias</th>
+              </tr>
+              <tr>
+                <th colspan="2">Tda.</th>
+                <th colspan="2">Unidades</th>
+                <th colspan="2">Pesos</th>
+                <th colspan="2">Unidades</th>
+                <th colspan="2">Pesos</th>
+                <th colspan="2">Unidades</th>
+                <th colspan="2">Pesos</th>
+                <th colspan="2">Unidades</th>
+                <th colspan="2">Pesos</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+              <tr>
+                <td colspan="2"> {{rowData.numtienda}}</td>
+                <td colspan="2"> {{rowData.ExisUnidades}}</td>
+                <td colspan="2"> {{rowData.ExisPesos}}</td>
+                <td colspan="2"> {{rowData.TranSurtido}}</td>
+                <td colspan="2"> {{rowData.PesosSurtido}}</td>
+                <td colspan="2"> {{rowData.UnidadesGuia}}</td>
+                <td colspan="2"> {{rowData.PesosGuia}}</td>
+                <td colspan="2"> {{rowData.difUnidades}}</td>
+                <td colspan="2"> {{rowData.difPesos}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </section>
